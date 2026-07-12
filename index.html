@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lazy Jones — A C64 Classic Remake</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <span class="brand-mark">▮▯▮</span>
+    <div>
+      <h1>LAZY JONES</h1>
+      <p class="tagline">A remake of the 1984 Commodore 64 classic</p>
+    </div>
+  </div>
+  <nav class="header-actions">
+    <button id="btn-help" class="btn btn-ghost" type="button">How to play</button>
+    <button id="btn-sound" class="btn btn-ghost" type="button" aria-pressed="true">Sound: on</button>
+  </nav>
+</header>
+
+<main>
+  <section class="crt-stage">
+    <div class="crt">
+      <div class="crt-screen">
+        <canvas id="game" width="320" height="200"></canvas>
+        <div class="scanlines" aria-hidden="true"></div>
+        <div class="crt-glare" aria-hidden="true"></div>
+      </div>
+      <div class="crt-chin">
+        <span class="crt-badge">RE·64</span>
+        <span class="crt-model">HOTEL VISION 200</span>
+        <span class="power-led" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel-row">
+    <article class="panel">
+      <h2>Controls</h2>
+      <ul class="keylist">
+        <li><kbd>←</kbd><kbd>→</kbd> walk the corridors</li>
+        <li><kbd>↑</kbd> enter a door · ride the lift up</li>
+        <li><kbd>↓</kbd> ride the lift down</li>
+        <li><kbd>Space</kbd> fire / action in mini-games</li>
+        <li><kbd>Enter</kbd> start game</li>
+      </ul>
+    </article>
+    <article class="panel">
+      <h2>Your shift</h2>
+      <p>You are Jones, the laziest employee the Hotel Magnificent has ever hired.
+      Dodge the manager, the maid's trolley and the hotel ghost, then slip through
+      every door to slack off on the arcade machines inside. Clear all 18 rooms
+      before your three warnings run out.</p>
+    </article>
+    <article class="panel">
+      <h2>Behind the doors</h2>
+      <ul class="roomlist" id="room-roster">
+        <li>Wafer Invaders</li><li>The Wall</li><li>Grub Snake</li>
+        <li>Star Snatch</li><li>Night Driver</li><li>99 Balloons</li>
+        <li>The Turk</li><li>Laser Jones</li><li>Forty Winks</li><li>The Oasis Bar</li>
+      </ul>
+    </article>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Fan-made homage to <em>Lazy Jones</em> (Terminal Software, 1984) by David Whittaker.
+  All code, art and music in this remake are original.</p>
+</footer>
+
+<!-- Help modal -->
+<div class="modal-backdrop hidden" id="modal-help" role="dialog" aria-modal="true" aria-labelledby="help-title">
+  <div class="modal">
+    <h2 id="help-title">How to play</h2>
+    <div class="modal-body">
+      <p><strong>In the hotel:</strong> walk with <kbd>←</kbd> <kbd>→</kbd>. Step into the
+      lift shaft on the left and press <kbd>↑</kbd> or <kbd>↓</kbd> to change floors.
+      Stand in front of a door and press <kbd>↑</kbd> to enter.</p>
+      <p><strong>Watch out:</strong> the manager, the maid's trolley and the ghost patrol
+      the corridors. Touch one and you lose a warning. Three warnings and you're fired.</p>
+      <p><strong>In the rooms:</strong> each room hides a different mini-game with a
+      25-second timer. Score as much as you can, then you're back in the corridor.
+      A door closes for good once you've played it — clear all 18 to finish your shift.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" data-close type="button">Got it</button>
+    </div>
+  </div>
+</div>
+
+<!-- Game over / victory modal -->
+<div class="modal-backdrop hidden" id="modal-over" role="dialog" aria-modal="true" aria-labelledby="over-title">
+  <div class="modal">
+    <h2 id="over-title">Game over</h2>
+    <div class="modal-body">
+      <p id="over-text"></p>
+      <div class="score-row">
+        <div class="score-box"><span class="score-label">Score</span><span id="over-score">0</span></div>
+        <div class="score-box"><span class="score-label">Best</span><span id="over-best">0</span></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="btn-restart" type="button">Play again</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/audio.js"></script>
+<script src="js/minigames.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
