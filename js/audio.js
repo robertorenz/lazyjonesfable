@@ -5,7 +5,15 @@
 const AudioSys = (() => {
   let ctx = null, master = null, musicBus = null;
   let enabled = true;
-  let seqTimer = null, cur = null, step = 0, nextT = 0;
+  let seqTimer = null, cur = null, step = 0, nextT = 0, curName = null;
+
+  /* The main theme plays in the corridors and on the title screen;
+     rooms keep their own sequenced chiptunes, like the original. */
+  const THEME_TRACKS = new Set(['title', 'hotel']);
+  const theme = new Audio('assets/lazy-jones-theme.mp3');
+  theme.loop = true;
+  theme.volume = 0.55;
+  theme.preload = 'auto';
 
   const freq = n => 440 * Math.pow(2, (n - 69) / 12);
 
@@ -91,7 +99,19 @@ const AudioSys = (() => {
     }
   }
 
+  function stopSeq() {
+    cur = null;
+    if (seqTimer) { clearInterval(seqTimer); seqTimer = null; }
+  }
+
   function playMusic(name) {
+    curName = name;
+    if (THEME_TRACKS.has(name)) {
+      stopSeq();
+      if (enabled) theme.play().catch(() => {});   // resumes where it left off
+      return;
+    }
+    theme.pause();
     if (!enabled) { cur = TUNES[name] || null; return; }
     ensure();
     cur = TUNES[name];
@@ -102,8 +122,9 @@ const AudioSys = (() => {
   }
 
   function stopMusic() {
-    cur = null;
-    if (seqTimer) { clearInterval(seqTimer); seqTimer = null; }
+    curName = null;
+    theme.pause();
+    stopSeq();
   }
 
   function gameTune(i) { return GAME_TUNES[i % GAME_TUNES.length]; }
@@ -136,7 +157,9 @@ const AudioSys = (() => {
     enabled = on;
     ensure();
     master.gain.value = on ? 0.5 : 0;
-    if (on && cur && !seqTimer) {
+    if (!on) { theme.pause(); return; }
+    if (curName && THEME_TRACKS.has(curName)) theme.play().catch(() => {});
+    else if (cur && !seqTimer) {
       step = 0; nextT = ctx.currentTime + 0.05;
       seqTimer = setInterval(scheduleSteps, 40);
     }

@@ -1,0 +1,2 @@
+# Raw audio masters — too large for the repo; the compressed MP3 in assets/ ships instead
+*.wav

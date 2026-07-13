@@ -52,8 +52,9 @@ Play all 18 rooms to finish your shift; three collisions and you're fired.
 
 - `js/main.js` — hotel world, state machine, HUD, title screen, rendering
 - `js/minigames.js` — the ten mini-games behind the doors
-- `js/audio.js` — WebAudio chiptune step-sequencer; every room gets its own tune,
-  just like the original (all melodies here are original compositions)
+- `js/audio.js` — the Lazy Jones theme (`assets/lazy-jones-theme.mp3`) plays on the
+  title screen and in the corridors; each room gets its own tune from a WebAudio
+  chiptune step-sequencer, just like the original
 - 320×200 internal resolution, pixel-scaled onto a CRT-styled monitor frame
 - High score persists in `localStorage`
 
@@ -63,4 +64,6 @@ Debug shortcuts: open `index.html#play` to skip the title screen, or
 ## Credits
 
 Homage to the original *Lazy Jones* by David Whittaker / Terminal Software (1984).
-All code, art and music in this remake are original work.
+All code and art in this remake are original work. The in-room chiptunes are
+original compositions; the corridor/title theme is a recording of the classic
+Lazy Jones soundtrack.

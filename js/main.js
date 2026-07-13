@@ -341,6 +341,11 @@ document.getElementById('btn-restart').addEventListener('click', e => {
   e.target.blur();
   reset();
 });
+/* Start the title theme on the first user gesture (autoplay policy). */
+const kickMusic = () => { if (state === 'title') music('title'); };
+addEventListener('keydown', kickMusic, { once: true });
+addEventListener('pointerdown', kickMusic, { once: true });
+
 /* Debug hooks for automated screenshots: #play jumps into the hotel,
    #room=<id> jumps straight into a mini-game. */
 if (location.hash === '#play') reset();
