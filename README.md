@@ -8,7 +8,9 @@ Pure HTML5 canvas + vanilla JavaScript. No build step, no dependencies.
 
 ## Play
 
-Open `index.html` in any modern browser, or serve the folder:
+**▶ Play it now: [robertorenz.github.io/lazyjonesfable](https://robertorenz.github.io/lazyjonesfable/)**
+
+Or run it locally — open `index.html` in any modern browser, or serve the folder:
 
 ```
 npx serve .
